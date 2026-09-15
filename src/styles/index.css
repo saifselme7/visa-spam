@@ -1,0 +1,289 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   VOIDCARD design tokens
+   Near-black surfaces, graphite structure, one restrained accent.
+------------------------------------------------------------------ */
+@theme {
+  --color-void-950: #050608;
+  --color-void-900: #08090c;
+  --color-void-850: #0b0d11;
+  --color-void-800: #0f1116;
+  --color-void-700: #16191f;
+  --color-void-600: #1e222a;
+  --color-void-500: #2a2f39;
+  --color-void-400: #3a4150;
+  --color-void-300: #5b6474;
+  --color-void-200: #8e97a6;
+  --color-void-100: #c5ccd8;
+  --color-void-50: #eef1f6;
+
+  --color-accent-500: #4de0c0;
+  --color-accent-400: #6ceed1;
+  --color-accent-600: #26b79a;
+  --color-accent-700: #148a73;
+
+  --color-signal-amber: #e0a94d;
+  --color-signal-red: #e05d5d;
+  --color-signal-blue: #5d8ae0;
+
+  --font-sans: 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius-card: 14px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --header-h: 68px;
+  }
+
+  * {
+    border-color: color-mix(in oklab, var(--color-void-500) 55%, transparent);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-void-950);
+    color: var(--color-void-100);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-void-50);
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    font-weight: 500;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-500);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent-500) 30%, transparent);
+    color: var(--color-void-50);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void-900);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-void-600);
+    border-radius: 99px;
+    border: 2px solid var(--color-void-900);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-void-500);
+  }
+}
+
+@layer components {
+  /* Thin hairline used instead of heavy borders */
+  .hairline {
+    border: 1px solid color-mix(in oklab, var(--color-void-50) 7%, transparent);
+  }
+
+  .hairline-t {
+    border-top: 1px solid color-mix(in oklab, var(--color-void-50) 7%, transparent);
+  }
+
+  .hairline-b {
+    border-bottom: 1px solid color-mix(in oklab, var(--color-void-50) 7%, transparent);
+  }
+
+  .surface {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--color-void-50) 3%, transparent) 0%,
+        transparent 40%
+      ),
+      var(--color-void-850);
+  }
+
+  .panel {
+    background-color: color-mix(in oklab, var(--color-void-850) 92%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-void-50) 7%, transparent);
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-void-300);
+  }
+
+  /* Technical grid backdrop */
+  .grid-backdrop {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--color-void-50) 4%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-void-50) 4%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+  }
+
+  .dot-backdrop {
+    background-image: radial-gradient(
+      color-mix(in oklab, var(--color-void-50) 9%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.32;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+  }
+
+  /* 3D card surfaces */
+  .card3d-scene {
+    perspective: 1400px;
+    perspective-origin: 50% 40%;
+  }
+
+  .card3d-body {
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .holo {
+    background:
+      linear-gradient(
+        115deg,
+        transparent 20%,
+        color-mix(in oklab, #7ef9e0 22%, transparent) 38%,
+        color-mix(in oklab, #b28cff 18%, transparent) 48%,
+        color-mix(in oklab, #ffd18c 16%, transparent) 58%,
+        transparent 76%
+      );
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-void-800) 25%,
+      var(--color-void-700) 37%,
+      var(--color-void-800) 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
