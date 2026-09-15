@@ -1,0 +1,87 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "react",
+    "typescript",
+    "oxc",
+    "import"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "warn",
+    "react/only-export-components": [
+      "warn",
+      {
+        "allowConstantExport": true
+      }
+    ],
+    "typescript/no-explicit-any": "error",
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "error",
+          "warn"
+        ]
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "import/no-unassigned-import": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/context/*.tsx",
+        "src/components/cards/AvailabilityTag.tsx",
+        "src/components/checkout/OrderStatusBadge.tsx",
+        "src/components/checkout/CheckoutStepper.tsx",
+        "src/pages/Catalog/FilterPanel.tsx",
+        "src/pages/Home/HowItWorksSection.tsx",
+        "src/routes/routeObjects.tsx"
+      ],
+      "rules": {
+        "react/only-export-components": "off"
+      }
+    },
+    {
+      "files": [
+        "src/hooks/useMediaQuery.ts",
+        "src/hooks/useCountdown.ts",
+        "src/components/navigation/SearchBar.tsx",
+        "src/components/layout/Navbar.tsx",
+        "src/pages/Account/ProfilePage.tsx",
+        "src/pages/Checkout/CheckoutPage.tsx"
+      ],
+      "rules": {
+        "react/set-state-in-effect": "off"
+      }
+    },
+    {
+      "files": [
+        "src/config/env.ts",
+        "src/components/common/ErrorBoundary.tsx"
+      ],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": [
+        "src/components/layout/ScrollToTop.tsx",
+        "src/components/layout/Navbar.tsx"
+      ],
+      "rules": {
+        "react/exhaustive-effect-dependencies": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "scripts"
+  ]
+}
